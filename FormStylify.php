@@ -25,7 +25,7 @@ class FormStylify
 		{
 			$GLOBALS['TL_JAVASCRIPT']['form_stylify'] = 'system/modules/form_stylify/assets/FormStylify.js';
 			$GLOBALS['TL_MOOTOOLS'][] = "<script>
-			window.addEvents({'domready': function() { new FormStylify('$formId') }, 'ajax_change': function() { new FormStylify('$formId') }});
+			window.addEvents({'domready': function() { new FormStylify(document.id(document.body).getElement('input[value=\"$formId\"]').getParent('form')) }, 'ajax_change': function() { new FormStylify('$formId') }});
 			</script>";
 
 			// prevent from being loaded as many times as there are form fields in the form
