@@ -23,7 +23,7 @@ class FormStylify
 	{
 		if ($arrData['form_stylify'] && !in_array($formId, $GLOBALS['FORM_STYLIFY']))
 		{
-			$GLOBALS['TL_JAVASCRIPT']['form_stylify'] = 'system/modules/form_stylify/assets/FormStylify.js';
+			$GLOBALS['TL_JAVASCRIPT']['form_stylify'] = 'system/modules/form_stylify/assets/FormStylify' . ($GLOBALS['TL_CONFIG']['debugMode'] ? '' : '.min') . '.js';
 			$GLOBALS['TL_MOOTOOLS'][] = "<script>
 			window.addEvents({'domready': function() { new FormStylify(document.id(document.body).getElement('input[value=\"$formId\"]').getParent('form')) }, 'ajax_change': function() { new FormStylify('$formId') }});
 			</script>";
