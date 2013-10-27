@@ -24,12 +24,34 @@ var FormStylify = function(form){
 
 	// Style select menus
 	form.getElements('select').each( function(select) {
-		var label = new Element('span');
-		new Element('div', {'class':'select_container'}).inject(select, 'before').adopt(label, select);
-		select.setStyle('opacity',0).addEvent('change', function() {
-			label.set('text', select.getChildren()[select.selectedIndex].get('text'));
+
+		var label = new Element('span', {
+		    'class': 'label',
+    		'styles': {
+        		'position': 'absolute'
+    		}
 		});
-		label.setStyle('position','absolute').set('text', select.getChildren()[select.selectedIndex].get('text'));
+
+		var pointer = new Element('span', {
+    		'class': 'pointer',
+    		'styles': {
+        		'position': 'absolute'
+    		}
+		});
+
+		function change() {
+			label.set('text', select.getChildren()[select.selectedIndex].get('text'));
+
+			if (select.selectedIndex == 0 && select.getChildren()[select.selectedIndex].get('value') == '') {
+    			label.addClass('placeholder');
+			} else {
+    			label.removeClass('placeholder');
+			}
+		}
+
+		new Element('div', {'class':'select_container'}).inject(select, 'before').adopt(label, pointer, select);
+		select.setStyle('opacity', 0).addEvent('change', change);
+		change();
 	});
 
 	form.addClass('stylify');
