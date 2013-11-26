@@ -25,6 +25,10 @@ var FormStylify = function(form){
 	// Style select menus
 	form.getElements('select').each( function(select) {
 
+        if (select.get('multiple')) {
+            return;
+        }
+
 		var label = new Element('span', {
 		    'class': 'label',
     		'styles': {
