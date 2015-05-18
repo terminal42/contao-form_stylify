@@ -83,12 +83,14 @@ var FormStylify = function(formId){
         pointer.style.position = 'absolute';
 
         var change = function() {
-            label.innerHTML = this.options[this.selectedIndex].text;
+            var selectLabel = this.previousSibling.previousSibling;
+
+            selectLabel.innerHTML = this.options[this.selectedIndex].text;
 
             if (this.selectedIndex == 0 && this.options[this.selectedIndex].value == '') {
-                addClass(label, 'placeholder');
+                addClass(selectLabel, 'placeholder');
             } else {
-                removeClass(label, 'placeholder');
+                removeClass(selectLabel, 'placeholder');
             }
         };
 
