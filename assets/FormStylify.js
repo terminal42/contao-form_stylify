@@ -34,22 +34,36 @@ var FormStylify = function(formId){
         el.className = classes.join(' ');
     };
 
-	var radios = form.querySelectorAll('.radio_container input.radio');
+    var radios = {};
+    var radio_inputs = form.querySelectorAll('.radio_container input.radio');
 
-	// Style radio containers
-    for (i = 0; i < radios.length; i++) {
-        radios[i].addEventListener('change', function(e) {
-            for (var k = 0; k < radios.length; k++) {
-                if (radios[k].checked) {
-                    addClass(radios[k].parentNode, 'active');
+    // Style radio containers
+	for (i = 0; i < radio_inputs.length; i++) {
+        var radio = radio_inputs[i];
+        var radio_name = radio.name;
+
+        // Group radio by names
+        if (!radios[radio_name]) {
+            radios[radio_name] = [];
+        }
+
+        radios[radio_name].push(radio);
+
+        // Register the change event
+        radio.addEventListener('change', function() {
+            var current_radio_name = this.name;
+
+            for (var k = 0; k < radios[current_radio_name].length; k++) {
+                if (radios[current_radio_name][k].checked) {
+                    addClass(radios[current_radio_name][k].parentNode, 'active');
                 } else {
-                    removeClass(radios[k].parentNode, 'active');
+                    removeClass(radios[current_radio_name][k].parentNode, 'active');
                 }
             }
         });
 
-        if (radios[i].checked) {
-            addClass(radios[i].parentNode, 'active');
+        if (radio.checked) {
+            addClass(radio.parentNode, 'active');
         }
     }
 
